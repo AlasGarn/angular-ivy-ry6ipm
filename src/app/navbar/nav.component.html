@@ -1,0 +1,39 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light fixed-top"
+  ng-controller="HeaderController"
+>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" ng-class="{ active: isActive('/') }">
+        <a class="navbar-brand nav-link" href="#home"
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li>
+
+      <li class="nav-item" ng-class="{ active: isActive('/work') }">
+        <a class="nav-link" href="#work">Latest Work&nbsp;</a>
+      </li>
+      <li class="nav-item" ng-class="{ active: isActive('/CV') }">
+        <a class="nav-link" href="#CV">CV&nbsp;</a>
+      </li>
+      <li class="nav-item" ng-class="{ active: isActive('/Pubs') }">
+        <a class="nav-link" href="#Pubs">Publications&nbsp;</a>
+      </li>
+      <li class="nav-item" ng-class="{ active: isActive('/projects') }">
+        <a class="nav-link" href="#projects"> Projects </a>
+      </li>
+    </ul>
+  </div>
+</nav>
