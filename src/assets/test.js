@@ -1,3 +1,3 @@
-(function test() {
+exports.test = function test() {
   alert('TestingFunction');
-})
+};
