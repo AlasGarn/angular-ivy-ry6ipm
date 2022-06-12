@@ -23,6 +23,7 @@
     "@popperjs/core": "^2.10.2",
     "angular-scroll-magic": "^0.2.4",
     "bootstrap": "^5.1.3",
+    "cors": "^2.8.5",
     "jquery": "^3.6.0",
     "lottie-web": "5.9.4",
     "ngx-lottie": "^8.2.0",

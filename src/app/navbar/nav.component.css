@@ -1,3 +1,14 @@
-p {
-  font-family: Lato;
+.the-blur {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 20px;
+  background: rgba(0.8, 0.8, 0.8, 0.5);
+  z-index: 1010;
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  -o-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
 }

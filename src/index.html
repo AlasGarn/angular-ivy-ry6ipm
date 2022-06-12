@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mysite">
   <head>
     <meta charset="utf-8" />
     <title>Angular Getting Started</title>
@@ -11,10 +11,24 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-
-
   </head>
   <body>
+    <script src="./assets/testjs.js"></script>
+    <script type="application/javascript" src="app.module.js"></script>
+    <script type="application/javascript" src="app.config.js"></script>
+    <script
+      type="application/javascript"
+      src="app/navbar/nav.module.js"
+    ></script>
+    <script
+      type="application/javascript"
+      src="app/navbar/nav.component.js"
+    ></script>
+    <script type="text/javascript">
+      function setup() {
+        console.log('asd');
+      }
+    </script>
     <mysite>loading</mysite>
     <div ng-view></div>
   </body>
