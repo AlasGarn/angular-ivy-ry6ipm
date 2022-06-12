@@ -1,14 +1,18 @@
-.the-blur {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  min-height: 50px;
-  margin-bottom: 20px;
-  background: rgba(0.8, 0.8, 0.8, 0.5);
+.navbar {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: rgba(150,150,150,0.2) !important;  /* Give transparent white background to navbar */
+                                                   /* 0.2 to give little whitish effect. */
+                                                   /* Put 0 to get complete transperency */
   z-index: 1010;
-  -webkit-filter: blur(10px);
-  -moz-filter: blur(10px);
-  -o-filter: blur(10px);
-  -ms-filter: blur(10px);
-  filter: blur(10px);
-}
+  backdrop-filter: blur(10px) saturate(125%);                   /* Blur the background */
+                                                                  /* 10px Gaussian Blur and saturate for fluent design */
+  -webkit-backdrop-filter: blur(10px) saturate(125%); 
