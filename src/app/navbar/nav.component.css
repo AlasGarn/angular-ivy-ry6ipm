@@ -1,7 +1,7 @@
 .navbar {
-  position: relative;
+  position: sticky;
   display: -ms-flexbox;
-  display: flex;
+  display: block;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -ms-flex-align: center;
@@ -21,4 +21,8 @@
   backdrop-filter: blur(10px) saturate(125%); /* Blur the background */
   /* 10px Gaussian Blur and saturate for fluent design */
   -webkit-backdrop-filter: blur(10px) saturate(125%);
+}
+.logo-container {
+  position: sticky;
+  display: block;
 }
