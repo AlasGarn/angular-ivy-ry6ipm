@@ -1,4 +1,5 @@
-angular.module('mysite', ['ngRoute']).config([
+var app = angular.module('mysite', ['ngRoute'])
+app.config([
   '$routeProvider',
   function config($routeProvider) {
     $routeProvider
@@ -11,3 +12,17 @@ angular.module('mysite', ['ngRoute']).config([
       .otherwise({ redirectTo: '/' });
   },
 ]);
+
+app.controller("loginController", function ($scope, $location) {
+           
+  $scope.authenticate = function (username) {
+      // write authentication code here.. 
+
+      $location.path('/student/' + username)
+  };
+
+});
+
+app.controller("studentController", function ($scope, $routeParams) {
+  $scope.username = $routeParams.username;
+});
