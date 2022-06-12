@@ -25,7 +25,8 @@
               "src/app/app.module.js",
               "src/app/navbar/nav.module.js",
               "src/app/navbar/nav.component.js",
-              "src/app/app.config.js"
+              "src/app/app.config.js",
+              "src/assets/test.js"
             ]
           },
           "configurations": {
@@ -78,7 +79,8 @@
               "src/app/app.module.js",
               "src/app/navbar/nav.module.js",
               "src/app/navbar/nav.component.js",
-              "src/app/app.config.js"
+              "src/app/app.config.js",
+              "src/assets/test.js"
             ],
             "assets": ["src/favicon.ico", "src/assets"]
           }
