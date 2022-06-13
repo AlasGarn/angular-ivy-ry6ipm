@@ -15,12 +15,19 @@
     <div class="ape">
       <div class="row">
         <div class="ape-jpg col-12 text-center">
-          <img src="assets/img/ape.png" alt="image" />
+          <img
+            src="assets/img/ape.png"
+            alt="image"
+            [ngsReveal]="{ duration: 1000, origin: 'left', distance: '100px' }"
+          />
         </div>
       </div>
 
       <div class="row">
-        <div class="ape-bio col-12 text-center">
+        <div
+          class="ape-bio col-12 text-center"
+          [ngsReveal]="{ duration: 1000, origin: 'r', distance: '100px' }"
+        >
           <h2>About me</h2>
           <p>A short, sturdy creature fond of drink and industry.</p>
         </div>
@@ -71,6 +78,6 @@
 
 <script>
   window.sr = ScrollReveal();
-  sr.reveal('.ape-jpg', {duration:1000, origin: "left",  distance:"100px"});
+  sr.reveal('.ape-jpg',);
   sr.reveal('.ape-bio', {duration:1000, origin: "right", distance:"100px"});
 </script>
