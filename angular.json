@@ -26,7 +26,6 @@
               "src/app/navbar/nav.module.js",
               "src/app/navbar/nav.component.js",
               "src/app/app.config.js",
-              "src/assets/test.js",
               "node_modules/scrollreveal/dist/scrollreveal.min.js"
             ]
           },
@@ -81,7 +80,6 @@
               "src/app/navbar/nav.module.js",
               "src/app/navbar/nav.component.js",
               "src/app/app.config.js",
-              "src/assets/test.js",
               "node_modules/scrollreveal/dist/scrollreveal.min.js"
             ],
             "assets": ["src/favicon.ico", "src/assets"]
