@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+
 import { NgsRevealModule } from 'ngx-scrollreveal';
+
 import { NavComponent } from './navbar/nav.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
@@ -18,7 +20,6 @@ import { ProjectsComponent } from './projects/projects.component';
     ]),
     FormsModule,
     NgsRevealModule,
-    RouterModule,
   ],
   declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent],
   bootstrap: [AppComponent],
