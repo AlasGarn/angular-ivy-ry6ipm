@@ -10,18 +10,28 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
 import { NavComponent } from './navbar/nav.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+const appRoutes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'projects', component: ProjectsComponent },
+  { path: '', 
+       component: HomeComponent,
+       redirectTo: 'home',
+//           pathMatch: 'full'
+	     },
+];
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
-      { path: 'projects', component: ProjectsComponent },
-      { path: 'home', component: HomeComponent },
-    ]),
+    RouterModule.forRoot(appRoutes,
+      { enableTracing: true }) ,
     FormsModule,
     NgsRevealModule,
+    NgbModule
   ],
   declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent],
   bootstrap: [AppComponent],
+  exports: [RouterModule]
 })
 export class AppModule {}

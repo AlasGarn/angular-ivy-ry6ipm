@@ -1,6 +1,6 @@
 {
   "name": "angular",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
@@ -22,9 +22,11 @@
     "@angular/compiler": "14.0.1",
     "@angular/core": "14.0.1",
     "@angular/forms": "14.0.1",
+    "@angular/localize": "14.0.1",
     "@angular/platform-browser": "14.0.1",
     "@angular/platform-browser-dynamic": "14.0.1",
     "@angular/router": "14.0.1",
+    "@ng-bootstrap/ng-bootstrap": "^12.1.2",
     "@popperjs/core": "^2.10.2",
     "angular-scroll-magic": "^0.2.4",
     "bootstrap": "^5.1.3",
