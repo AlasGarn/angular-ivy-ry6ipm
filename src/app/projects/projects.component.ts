@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AnimationComponent } from '../animation/animation.component';
 
 @Component({
   selector: 'projects',

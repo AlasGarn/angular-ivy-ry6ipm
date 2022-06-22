@@ -9,36 +9,36 @@
     pt-0
   "
   ng-controller="HeaderController"
->
-  <button
-    class="navbar-toggler"
-    type="button"
+  >
+  <button class="navbar-toggler d-lg-none" 
+	  type="button" 
+	  (click)="collapse.toggle()" 
+	  [attr.aria-expanded]="!isCollapsed" 
     data-toggle="collapse"
     data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
+	  aria-label="Toggle navigation"
+aria-expanded="false"
+	  >
+  <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div [ngbCollapse] id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div id="navbarSupportedContent" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+    <ul  class="navbar-nav mr-auto">
       <li class="nav-item active">
-	      <a (click)="scroll($event)" class="navbar-brand nav-link" href="#" routerLink="/home">Home </a>
-      </li>
-
-      <li class="nav-item" >
-        <a (click)="scroll($event)" class="nav-link" href="#work"  >Latest Work&nbsp;</a>
+	      <a  class="navbar-brand nav-link" [routerLink]='["/"]' fragment="bio">Home </a>
       </li>
       <li class="nav-item" >
-        <a (click)="scroll($event)" class="nav-link" routerLink="CV" >CV&nbsp;</a>
+        <a class="nav-link" [routerLink]="['/']" fragment="work">Latest Work&nbsp;</a>
       </li>
       <li class="nav-item" >
-        <a (click)="scroll($event)" class="nav-link" href="#Pubs">Publications&nbsp;</a>
+        <a  class="nav-link" [routerLink]="['/']" fragment="CV">CV&nbsp;</a>
       </li>
       <li class="nav-item" >
-        <a (click)="scroll($event)" class="nav-link" routerLink="/projects" href="#projects"> Projects </a>
+        <a  class="nav-link" [routerLink]="['/']" fragment="Pubs">Publications&nbsp;</a>
+      </li>
+      <li class="nav-item" >
+        <a  class="nav-link" routerLink="projects" > Projects </a>
       </li>
     </ul>
   </div>

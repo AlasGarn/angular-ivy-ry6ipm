@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Post } from "../models/post";
 
 @Component({
   selector: 'home',
@@ -6,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
-  ngOnInit(): void {}
+  posts: Post[];
+
+  constructor(private _route: ActivatedRoute) {
+    this.posts = [];
+  }
+
+  ngOnInit() {
+    this.posts = this._route.snapshot.data["posts"];
+  }
 }

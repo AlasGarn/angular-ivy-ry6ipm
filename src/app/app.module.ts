@@ -10,7 +10,14 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
 import { NavComponent } from './navbar/nav.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { AnimationComponent } from './animation/animation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResolverService } from "./resolvers/resolver.service";
+import { HttpClientModule } from '@angular/common/http';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { LottieModule } from "ngx-lottie";
+import player from "lottie-web";
+
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -18,20 +25,42 @@ const appRoutes: Routes = [
   { path: '', 
        component: HomeComponent,
        redirectTo: 'home',
-//           pathMatch: 'full'
 	     },
+  { path: '**', component: HomeComponent }
 ];
+
+const routes: Routes = [
+	{
+            path: "home",
+            component: HomeComponent,
+	    resolve: { posts: ResolverService }
+	},
+        { path: 'projects', component: ProjectsComponent },
+        { path: '', 
+          redirectTo: 'home',
+        },
+];
+export function playerFactory() {
+	  return player;
+}
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes,
-      { enableTracing: true }) ,
+    HttpClientModule,
+    NgbModule,
+    NgbCollapseModule,
+    LottieModule.forRoot({ player: playerFactory }),
+    RouterModule.forRoot(routes,
+      { 
+	scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+	scrollOffset: [0, 64]
+          }) ,
     FormsModule,
     NgsRevealModule,
-    NgbModule
   ],
-  declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent],
+  declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent, AnimationComponent],
   bootstrap: [AppComponent],
-  exports: [RouterModule]
+ // exports: [RouterModule]
 })
 export class AppModule {}

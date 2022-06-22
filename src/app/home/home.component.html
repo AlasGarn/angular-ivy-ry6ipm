@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 
 <div
-  #home 
-  class="container-fluid min-vh-100 justify-content-center"
->
-  <div class="jumbotron text-center">
-    <div class="row">
+  id="home" 
+  class="container-fluid justify-content-center">
+  <div class="vh-100 mh-100 bio jumbotron" id="bio">
+    <div class="row d-flex align-content-end" style="height: 25%">
       <div class="col-12 text-center">
         <h1>Kirill, PhD, Ape.</h1>
         <p>Bananas, Monkeypox, Life advice</p>
       </div>
     </div>
-
-    <div class="ape">
-      <div class="row">
-        <div class="ape-jpg col-12 text-center">
+    <div 
+	 style="height: 50%;
+	        display: flex;
+	        justify-content: center;">
           <img
             src="assets/img/ape.png"
             alt="image"
+	    class="img-fluid" 
             [ngsReveal]="{ duration: 1000, origin: 'left', distance: '100px' }"
           />
-        </div>
       </div>
 
-      <div class="row">
+      <div class="row d-flex align-content-start" style="height: 25%">
         <div
-          class="ape-bio col-12 text-center"
+          class="col-12 text-center"
           [ngsReveal]="{ duration: 1000, origin: 'right', distance: '100px' }"
         >
           <h2>About me</h2>
           <p>A short, sturdy creature fond of drink and industry.</p>
         </div>
       </div>
-    </div>
   </div>
 </div>
 
 <hr />
 
-<div #work class="section container min-vh-100 mt-3">
+<div id="work" class="section container min-vh-100 mt-3">
   <div class="row">
-    <div class="col-12 text-center">
+    <div class="col-12 ">
       <h2>Latest Work</h2>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, et,
@@ -53,7 +51,7 @@
 
 <hr />
 
-<div #CV class="section container min-vh-100 mt-3">
+<div id="CV" class="section container min-vh-100 mt-3">
   <div class="row">
     <div class="col-12 text-center">
       <h3>CV summary goes here</h3>
@@ -64,7 +62,7 @@
 
 <hr />
 
-<div #Pubs class="section container min-vh-100 mt-3">
+<div id="Pubs" class="section container min-vh-100 mt-3">
   <div class="col-12 text-center">
     <h3>Publication list</h3>
     <p>but it's missing</p>
@@ -75,9 +73,3 @@
 </div>
 
 <hr />
-
-<script>
-  window.sr = ScrollReveal();
-  sr.reveal('.ape-jpg',);
-  sr.reveal('.ape-bio', {duration:1000, origin: "right", distance:"100px"});
-</script>

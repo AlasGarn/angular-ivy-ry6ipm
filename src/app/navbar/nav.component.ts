@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Post } from "../models/post";
 
 @Component({
   selector: 'navbar',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
-})
-export class NavComponent {
-	  constructor(private router: Router) {}
 
-  scroll(event) {
-	this.router.navigate([], { fragment: event.currentTarget.id});
-	  console.log(event.target);
-     // el.scrollIntoView({behavior: 'smooth'});
+})
+export class NavComponent implements OnInit {
+  public isCollapsed = false;
+  posts: Post[];
+
+  constructor(private _route: ActivatedRoute) {
+    this.posts = [];
+  }
+
+  ngOnInit() {
+    this.posts = this._route.snapshot.data["posts"];
   }
 }
