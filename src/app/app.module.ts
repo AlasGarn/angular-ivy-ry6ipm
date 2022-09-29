@@ -19,16 +19,6 @@ import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
 
 
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'projects', component: ProjectsComponent },
-  { path: '', 
-       component: HomeComponent,
-       redirectTo: 'home',
-	     },
-  { path: '**', component: HomeComponent }
-];
-
 const routes: Routes = [
 	{
             path: "home",
@@ -61,6 +51,5 @@ export function playerFactory() {
   ],
   declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent, AnimationComponent],
   bootstrap: [AppComponent],
- // exports: [RouterModule]
 })
 export class AppModule {}
