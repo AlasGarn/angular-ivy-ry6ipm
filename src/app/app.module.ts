@@ -18,6 +18,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const routes: Routes = [
 	{
@@ -36,6 +37,7 @@ export function playerFactory() {
 @NgModule({
   imports: [
     BrowserModule,
+    PdfViewerModule,
     HttpClientModule,
     NgbModule,
     NgbCollapseModule,

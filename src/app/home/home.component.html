@@ -1,48 +1,45 @@
 <!DOCTYPE html>
 
-<div
-  id="home" 
-  class="container-fluid justify-content-center">
-  <div class="vh-100 mh-100 bio jumbotron" id="bio">
-    <div class="row d-flex align-content-end" style="height: 25%">
-      <div class="col-12 text-center">
-        <h1>Kirill, PhD, Ape.</h1>
-        <p>Bananas, Monkeypox, Life advice</p>
-      </div>
-    </div>
-    <div 
-	 style="max-height: 50%;
-	        display: flex; 
-	        justify-content: center;">
-          <img
-            src="assets/img/ape.png"
-            alt="image"
-	    class="img-fluid" 
-            [ngsReveal]="{ duration: 1000, origin: 'left', distance: '100px' }"
+<div id="home" >
+  <div id="bio">
+
+    <div class="d-flex row justify-content-center">
+      <div class="text-center mx-auto mx-lg-0 col-4 my-auto">
+        <h1>Kirill Konovalov</h1>
+      <img
+              src="assets/img/headshot.jpg"
+              alt="image"
+              class="img-fluid" 
+	      style="width: auto; height: 50vh"
+              [ngsReveal]="{ duration: 1000, origin: 'left', distance: '100px' }"
           />
       </div>
 
-      <div class="row d-flex align-content-start" style="height: 25%">
-        <div
-          class="col-12 text-center"
-          [ngsReveal]="{ duration: 1000, origin: 'right', distance: '100px' }"
-        >
-          <h2>About me</h2>
-          <p>A short, sturdy creature fond of drink and industry.</p>
-        </div>
+      <div
+	class="mx-auto mx-lg-0 col-4 my-auto"
+        [ngsReveal]="{ duration: 1000, origin: 'right', distance: '100px' }"
+      >
+        <h2>I specialize in studying complex biomolecular mechanisms through computer simulations.</h2>
+        <p>My aptitude lies with physical chemistry, particularly, biophysical models based on methods ranging from quantum mechanics to coarse-grained, with a focus on Markov state models and enhanced sampling. Overall, my work has contributed to our understanding of biophysics of multiple protein systems, specifically, transcription with RNA polymerase II and antibody design. Currently I am a post-doctoral researcher with Xuhui Huang at UW Madison.</p>
       </div>
+    </div>
   </div>
 </div>
 
 <hr />
 
 <div id="work" class="section container min-vh-100 mt-3">
+  <div class="row text-center">
+    <h1>Latest Work</h1>
+  </div>
   <div class="row">
     <div class="col-12 ">
-      <h2>Latest Work</h2>
+    <img src="assets/img/ape.png" />
+    </div>
+    <div class="col-12 ">
+	    <h2>	 PP2A-B56d </h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, et,
-        placeat !
+      Mutations in the protein phosphatase 2A, a major cell cycle regulator, cause cancer and intellectual disability. I found that mutations in this protein rewire a communication network underlying its dynamics to exert their harmful effect. 
       </p>
     </div>
   </div>
@@ -55,21 +52,12 @@
   <div class="row">
     <div class="col-12 text-center">
       <h3>CV summary goes here</h3>
-      <p>but but I've lost it</p>
+      <pdf-viewer src="assets/CV_2022.pdf"
+              render-text="true"
+              original-size="false"
+              style="width: auto; height: 100vh"
+      ></pdf-viewer>
     </div>
   </div>
 </div>
 
-<hr />
-
-<div id="Pubs" class="section container min-vh-100 mt-3">
-  <div class="col-12 text-center">
-    <h3>Publication list</h3>
-    <p>but it's missing</p>
-  </div>
-  <div class="row"></div>
-  <hr />
-  <div class="row"></div>
-</div>
-
-<hr />
