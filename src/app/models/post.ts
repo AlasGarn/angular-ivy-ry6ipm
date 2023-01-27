@@ -3,4 +3,6 @@ export class Post {
   title: string;
   body: string;
   userId: string;
+  fragment: string;
+  URL: string;
 }

@@ -24,21 +24,35 @@ aria-expanded="false"
   </button>
 
   <div id="navbarSupportedContent" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    <ul  class="navbar-nav mr-auto">
-      <li class="nav-item active">
-	      <a  class="navbar-brand nav-link" [routerLink]='["/"]' fragment="bio">Home </a>
+    <ul  class="navbar-nav d-flex justify-content-center">
+      <li class="nav-item"
+[routerLinkActive]="['active']" 
+[routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
+>
+	      <a  class="navbar-brand nav-link" [routerLink]='["/home"]' 
+                  fragment="bio">KIRILL KONOVALOV</a>
       </li>
-      <li class="nav-item" >
-        <a class="nav-link" [routerLink]="['/']" fragment="work">Latest Work&nbsp;</a>
+      <span class="sr-only"></span>
+      <li class="nav-item" 
+[routerLinkActive]="['active']" 
+[routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
+>
+        <a class="nav-link" [routerLink]="['/home']"
+fragment="work">LATEST WORK</a>
       </li>
-      <li class="nav-item" >
-        <a  class="nav-link" [routerLink]="['/']" fragment="CV">CV&nbsp;</a>
+      <li class="nav-item" 
+[routerLinkActive]="['active']" 
+[routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
+>
+        <a  class="nav-link" [routerLink]="['/home']" 
+fragment="CV">CV</a>
       </li>
-      <li class="nav-item" >
-        <a  class="nav-link" [routerLink]="['/']" fragment="Pubs">Publications&nbsp;</a>
-      </li>
-      <li class="nav-item" >
-        <a  class="nav-link" routerLink="projects" > Projects </a>
+      <li class="nav-item" 
+[routerLinkActive]="['active']" 
+[routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
+>
+        <a  class="nav-link" routerLink="projects" 
+> PROJECTS </a>
       </li>
     </ul>
   </div>

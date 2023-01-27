@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 
-<div id="home" >
+<div id="home" style="align-content: center">
   <div id="bio">
-
-    <div class="d-flex row justify-content-center">
-      <div class="text-center mx-auto mx-lg-0 col-4 my-auto">
-        <h1>Kirill Konovalov</h1>
-      <img
-              src="assets/img/headshot.jpg"
+    <div class="d-flex row justify-content-center" style="height: 75vh">
+      <div class="text-center mx-auto mx-lg-0 pr-3 col-3 my-auto justify-right">
+        <img
+              src="assets/img/headshot.png"
               alt="image"
-              class="img-fluid" 
+              class="img-fluid img-rounded" 
 	      style="width: auto; height: 50vh"
-              [ngsReveal]="{ duration: 1000, origin: 'left', distance: '100px' }"
           />
       </div>
-
-      <div
-	class="mx-auto mx-lg-0 col-4 my-auto"
-        [ngsReveal]="{ duration: 1000, origin: 'right', distance: '100px' }"
-      >
-        <h2>I specialize in studying complex biomolecular mechanisms through computer simulations.</h2>
-        <p>My aptitude lies with physical chemistry, particularly, biophysical models based on methods ranging from quantum mechanics to coarse-grained, with a focus on Markov state models and enhanced sampling. Overall, my work has contributed to our understanding of biophysics of multiple protein systems, specifically, transcription with RNA polymerase II and antibody design. Currently I am a post-doctoral researcher with Xuhui Huang at UW Madison.</p>
+      <div class="mx-auto mx-lg-0 col-5 my-auto justify-right">
+        <div class="row">
+          <h2>ABOUT ME</h2>
+<p>
+I specialize in studying complex biomolecular mechanisms through computer simulations.My aptitude lies with physical chemistry, particularly, biophysical models based on methods ranging from quantum mechanics to coarse-grained, with a focus on Markov state models and enhanced sampling. Overall, my work has contributed to our understanding of biophysics of multiple protein systems, specifically, transcription with RNA polymerase II and antibody design. Currently I am a post-doctoral researcher with Xuhui Huang at UW Madison</p>
+        </div>
+     
+        <div class="row" style="justify-content: right">
+          <div class="col-1">
+            <button class="btn btn-outline-secondary">
+            <a class="link-secondary" 
+               href='https://scholar.google.com/citations?hl=en&user=hPXpdcMAAAAJ' 
+               target="_blank">Scholar</a>
+            </button>
+          </div>
       </div>
     </div>
   </div>
 </div>
 
-<hr />
+<hr/>
 
 <div id="work" class="section container min-vh-100 mt-3">
   <div class="row text-center">
-    <h1>Latest Work</h1>
+    <h1>LATEST WORK</h1>
   </div>
-  <div class="row">
-    <div class="col-12 ">
-    <img src="assets/img/ape.png" />
+  <div class="row vh-50" id="pp2a">
+    <div class="col"> 
+      <img class="vw-50" src="assets/img/ape.png"/>
     </div>
-    <div class="col-12 ">
-	    <h2>	 PP2A-B56d </h2>
+    <div class="col"
+              [ngsReveal]="{ duration: 1000, origin: 'right', distance: '100px' }"
+	    >
+
+      <h2>Allostery in phosphatase mutants</h2>
       <p>
       Mutations in the protein phosphatase 2A, a major cell cycle regulator, cause cancer and intellectual disability. I found that mutations in this protein rewire a communication network underlying its dynamics to exert their harmful effect. 
       </p>
     </div>
   </div>
-  <div class="row" id="pp2a"></div>
 </div>
 
 <hr />
@@ -51,8 +58,8 @@
 <div id="CV" class="section container min-vh-100 mt-3">
   <div class="row">
     <div class="col-12 text-center">
-      <h3>CV summary goes here</h3>
-      <pdf-viewer src="assets/CV_2022.pdf"
+      <h3>CURRICULUM VITAE</h3>
+      <pdf-viewer src="assets/CV_2023.pdf"
               render-text="true"
               original-size="false"
               style="width: auto; height: 100vh"

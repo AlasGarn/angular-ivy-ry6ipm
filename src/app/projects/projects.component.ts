@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AnimationComponent } from '../animation/animation.component';
+import { pp2aAnimationComponent } from '../animations/pp2a.component';
 
 @Component({
   selector: 'projects',
