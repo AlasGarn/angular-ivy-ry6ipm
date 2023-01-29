@@ -1,23 +1,38 @@
-<div class="row justify-content-start">
-  <div class="col-8" [style.height.px]="animationBuffer">
-    <div style=" height: auto; position: fixed; top: 0px">
-      <ng-lottie
+<div class="row justify-content-start align-items-center min-vh-75">
+  <div class="col-lg-8 col-sm-10"style="position: fixed; top: 50px; height: 75%"> 
+    <ng-lottie
           [options]="options"
           (animationCreated)="animationCreated($event)"
       >
    <!--    [style.height.px]="animationParentHeight" -->
-      </ng-lottie> 
-    </div>
+<!--[style.height.px]="animationBuffer"-->
+    </ng-lottie> 
   </div>	  
 </div>
-<div id="placeholder" style="height: 5000px">
-	placeholder
-  <div class="d-flex row justify-content-end">
-    <div class="col-3 text-right overlay">
-      <h1>This is protein phosphotase 2A </h1>
-      <p>it's correlated motion forms an allosteric network, which determines how a disturbance in one part of the protein propagates to another</p>
-    </div>
-  <div class="col-1"></div>
+<div>
+<div style="height:50vh"></div>
 </div>
+<div class="d-flex row justify-content-end align-items-center">
+  <div class="col-lg-4 col-sm-10 text-right overlay">
+    <h1>PROTEIN PHOSPHOTASE 2A </h1>
+    <p>A key regulator of cellular cycle and mutations in its regulatory subunit are linked to intellectual disability and cancer.</p>
+  </div>
+  <div class="col-lg-2"></div>
+</div>
+<div style="height:75vh"></div>
+<div class="d-flex row justify-content-end align-items-center">
+  <div class="col-lg-4 col-sm-10 text-right overlay">
+    <p>Its correlated dynamics form an allosteric network, which determines how a disturbance in one part of the protein reaches another</p>
+  </div>
+  <div class="col-2"></div>
+</div>
+<div style="height:75vh"></div>
+<div class="d-flex row justify-content-end align-items-center">
+  <div class="col-lg-4 col-sm-10 text-right overlay">
+    <p>UNDER CONSTRUCTION</p>
+  </div>
+  <div class="col-2"></div>
+</div>
+<div id="placeholder" style="height: 5000px">
 </div>
 

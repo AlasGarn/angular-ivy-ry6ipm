@@ -1,3 +1,6 @@
 p {
-  font-family: Lato;
+    font-family: 'PT Serif', serif;
+    font-size: 1.125rem;
+    line-height: 1.688rem;
+    font-weight: 400;
 }

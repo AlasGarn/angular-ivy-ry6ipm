@@ -5,7 +5,7 @@ import { AnimationItem } from 'lottie-web';
 @Component({
   selector: 'pp2a-animation',
   templateUrl: './pp2a.component.html',
-  styles: ['pp2a.component.css']
+  styleUrls: ['pp2a.component.css', '../app.component.css']
 })
 
 export class pp2aAnimationComponent {
@@ -38,6 +38,6 @@ export class pp2aAnimationComponent {
 
   ngAfterViewInit() {
     this.animationBuffer = 5 * window.innerHeight;
-    this.animationParentHeight = window.innerHeight;
+ /*   this.animationParentHeight = window.innerHeight;*/
   }
 }
