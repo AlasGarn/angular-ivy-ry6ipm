@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
@@ -50,6 +51,7 @@ export function playerFactory() {
     NgsRevealModule,
   ],
   declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent, pp2aAnimationComponent],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
