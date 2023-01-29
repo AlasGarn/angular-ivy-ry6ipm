@@ -1,17 +1,23 @@
-<div [style.height.px]="animationBuffer">
-  <div style="width: auto; height: auto; position: sticky; top: 0px"
-
-       [style.height.px]="animationParentHeight"
-	  >
-    <ng-lottie
-          layout-align="center center"
+<div class="row justify-content-start">
+  <div class="col-8" [style.height.px]="animationBuffer">
+    <div style=" height: auto; position: fixed; top: 0px">
+      <ng-lottie
           [options]="options"
           (animationCreated)="animationCreated($event)"
-    >
-    </ng-lottie> 
+      >
+   <!--    [style.height.px]="animationParentHeight" -->
+      </ng-lottie> 
+    </div>
   </div>	  
 </div>
 <div id="placeholder" style="height: 5000px">
 	placeholder
+  <div class="d-flex row justify-content-end">
+    <div class="col-3 text-right overlay">
+      <h1>This is protein phosphotase 2A </h1>
+      <p>it's correlated motion forms an allosteric network, which determines how a disturbance in one part of the protein propagates to another</p>
+    </div>
+  <div class="col-1"></div>
+</div>
 </div>
 
