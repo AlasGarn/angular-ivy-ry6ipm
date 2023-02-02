@@ -1,5 +1,5 @@
 import { Component, VERSION } from '@angular/core';
-import { NgsRevealConfig } from 'ngx-scrollreveal';
+/*import { NgsRevealConfig } from 'ngx-scrollreveal';*/
 import {
     Router,
     RouterEvent,
@@ -11,16 +11,19 @@ import {
   selector: 'mysite',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [NgsRevealConfig],
+/*  providers: [NgsRevealConfig],*/
 })
 export class AppComponent {
   isLoaded: boolean;
   constructor(private _router: Router,
+                       ) {
+  };
+ /* constructor(private _router: Router,
                        config: NgsRevealConfig) {
     // customize default values of ngx-scrollreveal directives used by this component tree
     config.duration = 1000;
     config.easing = 'cubic-bezier(0.645, 0.045, 0.355, 1)';
-  };
+  };*/
   ngOnInit() {
     this.routerEvents();
   }
