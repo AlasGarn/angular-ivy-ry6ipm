@@ -10,9 +10,12 @@ import { AnimationItem } from 'lottie-web';
 
 export class pp2aAnimationComponent {
   options: AnimationOptions = {
-    path: '../assets/animation/pp2a_animation.json',
+    path: '../assets/animation/pp2a_animation_tiny.json',
     autoplay: false,
     loop: false,
+    rendererSettings: {
+      progressiveLoad: true,
+        },
 	        };
   private animationItem: AnimationItem;
   public animationBuffer;
@@ -24,20 +27,18 @@ export class pp2aAnimationComponent {
   @HostListener('window:scroll', ['$event']) 
   animate(event): void {
     var maxFrames = this.animationItem.firstFrame + this.animationItem.totalFrames - 1;
-    var scrollPerFrame = (this.animationBuffer - window.innerHeight / 1.0 ) / this.animationItem.totalFrames;
-    var goTo = Math.round(window.pageYOffset) / scrollPerFrame;
+    var framesPerScreen = 60;
+    var goTo = framesPerScreen * Math.round(window.pageYOffset) / window.innerHeight;
     if (goTo > maxFrames){ goTo = maxFrames - 1 };
     this.animationItem.goToAndStop(goTo, true);
   }
 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
-/*    this.animationBuffer = this.animationItem.totalFrames * window.innerHeight; */
   }
 
 
   ngAfterViewInit() {
-    this.animationBuffer = 5 * window.innerHeight;
- /*   this.animationParentHeight = window.innerHeight;*/
+    console.log('element loaded')
   }
 }
