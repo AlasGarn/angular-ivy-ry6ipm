@@ -12,7 +12,8 @@ export class NavComponent implements OnInit {
   public isCollapsed = false;
   posts: Post[];
 
-  constructor(private _route: ActivatedRoute) {
+  constructor(private _route: ActivatedRoute, 
+              ) {  
     this.posts = [];
   }
 

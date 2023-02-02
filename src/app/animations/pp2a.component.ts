@@ -1,6 +1,17 @@
-import { AfterViewInit, Component, Input, NgZone, HostListener } from '@angular/core';
+import { AfterViewInit, OnInit, Component, Input, Inject, NgZone, HostListener } from '@angular/core';
 import { AnimationOptions, LottieModule } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
+
+import {
+    Router,
+    RouterEvent,
+    Event,
+    NavigationStart,
+    NavigationEnd
+} from "@angular/router";
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { LoadingService } from '../services/loader.service';
 
 @Component({
   selector: 'pp2a-animation',
@@ -9,6 +20,7 @@ import { AnimationItem } from 'lottie-web';
 })
 
 export class pp2aAnimationComponent {
+  loading$ = this.loader.loading$;
   options: AnimationOptions = {
     path: '../assets/animation/pp2a_animation_tiny.json',
     autoplay: false,
@@ -22,7 +34,11 @@ export class pp2aAnimationComponent {
   public topOffset;
   public animationParentHeight;
 
-  constructor(private ngZone: NgZone) {}  
+  constructor(
+    private ngZone: NgZone,
+    private router: Router,
+    @Inject(LoadingService) public loader: LoadingService,
+  ) {}  
 
   @HostListener('window:scroll', ['$event']) 
   animate(event): void {
@@ -35,6 +51,7 @@ export class pp2aAnimationComponent {
 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
+    console.log('animation loaded')
   }
 
 
