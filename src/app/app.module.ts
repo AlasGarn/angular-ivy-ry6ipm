@@ -11,13 +11,14 @@ import { ProjectsComponent } from './projects/projects.component';
 import { pp2aAnimationComponent } from './animations/pp2a.component';
 import { NgbModule,NgbCollapseModule  } from '@ng-bootstrap/ng-bootstrap';
 import { ResolverService } from "./resolvers/resolver.service";
-import { HttpClientModule } from '@angular/common/http';
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NetworkInterceptor } from './network.interceptor';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,7 +29,14 @@ const routes: Routes = [
             component: HomeComponent,
 	    resolve: { posts: ResolverService }
 	},
-        { path: 'projects', component: ProjectsComponent },
+        { path: 'projects', 
+          component: ProjectsComponent, 
+	  resolve: { posts: ResolverService }
+        } ,
+        { path: 'pp2a', 
+          component: pp2aAnimationComponent, 
+	  resolve: { posts: ResolverService }
+        } ,
         { path: '', redirectTo: 'home'},
 ];
 export function playerFactory() {
@@ -52,8 +60,16 @@ export function playerFactory() {
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
   ],
-  declarations: [AppComponent, NavComponent, HomeComponent, ProjectsComponent, pp2aAnimationComponent],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}], /* need to reload with hash */
+  declarations: [
+    AppComponent, 
+    NavComponent, 
+    HomeComponent, 
+    ProjectsComponent, 
+    pp2aAnimationComponent, SpinnerComponent,
+  ],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, /* need to reload with hash */
+             {provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true},
+],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

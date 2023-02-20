@@ -4,8 +4,23 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from "@angular/router";
-import { PostsService } from "../services/posts.service";
 
+import { PostService } from "../services/posts.service";
+
+
+import { Observable } from "rxjs";  
+import { Post } from "../models/post";  
+  
+@Injectable({providedIn: "root"})  
+export class ResolverService implements Resolve<Post[]> {  
+  constructor(private postService: PostService) {}  
+  
+  resolve(route: ActivatedRouteSnapshot): Observable<Post[]> {  
+    return this.postService.getPosts();  
+  }  
+}  
+
+/*
 @Injectable({
 	  providedIn: "root"
 })
@@ -17,4 +32,4 @@ export class ResolverService implements Resolve<any> {
 
 	   return this._postsService.getPostList();
        	  }
-}
+}*/
