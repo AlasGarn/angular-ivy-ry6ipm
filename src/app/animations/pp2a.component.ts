@@ -25,16 +25,17 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
 	        };
   private animationItem: AnimationItem;
   public animationBuffer;
-  private pauseFrames = [60,90,120];
-  private pauseDuration = 30;
+  private pauseFrames = [100,150,200];
+  private currentPauseFrame = 0;
+  private previousPauseFrame = 0;
+  private pauseDuration = 100;
   private pauseDebt = 0;
-  private pauseOffset = 0;
   private pause = false;
-  private pauseFrame = 0;
   public topOffset;
   public animationParentHeight;
-
-
+  private goToActual = 0;
+  private framesPerScreen = 30;
+  private changePause = false;
   constructor(
     private ngZone: NgZone,
     private postService: PostService,  
@@ -46,41 +47,70 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
   @HostListener('window:scroll', ['$event']) 
   animate(event): void {
     var maxFrames = this.animationItem.firstFrame + this.animationItem.totalFrames - 1;
-    var framesPerScreen = 60;
-    var goTo = Math.round(framesPerScreen * window.pageYOffset / window.innerHeight);
-    console.log("goto",goTo);
+    var goTo = Math.round(this.framesPerScreen * window.pageYOffset / window.innerHeight);
+
+
     /* find which frame we're paused on */
     for (let p of this.pauseFrames) {
-        if (goTo < p) { 
-          /* pauseOffset is for the accumulated debt, regardless of the pause state */
-          this.pauseOffset = this.pauseDuration * (this.pauseFrames.indexOf(p) - 1);
-        }
+      var idx = this.pauseFrames.indexOf(p);
+      if (this.goToActual < p) { // find the first pause that we're behind of 
+        break;
+      }
+      this.currentPauseFrame = p; 
     }
-    if (goTo < this.pauseFrames[0]) {this.pauseOffset = 0;}
-    console.log("pause offset changed to", this.pauseOffset);
 
+    /*if we're above all pauses */
+    if (this.goToActual < this.pauseFrames[0]) {
+      this.currentPauseFrame = 0; 
+    }
 
-    /* if we're directly on a pause frame */
-    if (this.pauseFrames.includes(goTo) && this.pauseDebt < this.pauseDuration) {
-      this.pause = true;
-      this.pauseFrame = goTo;
-      console.log("hit pause");}
-    /* increase debt if in pause */
+    /* if pause offset changed, we're either in next pause or moved above prev pause */
+    if (this.previousPauseFrame != this.currentPauseFrame) {
+      this.pause = !this.pause;
+      console.log(
+        "previous pause frame", this.previousPauseFrame,
+        "pause frame changed to", this.currentPauseFrame,
+        "pause status", this.pause
+        );
+      this.previousPauseFrame = this.currentPauseFrame;
+    } 
+
+    /* gradually increase debt if in pause */
     if (this.pause == true) {
-      this.pauseDebt = goTo - this.pauseFrame;
-      console.log("increasing debt", this.pauseDebt);
+      this.pauseDebt = goTo - this.currentPauseFrame ;
+      console.log("changing debt to", this.pauseDebt);
     }
 
-    /* if we're beyond or above the pause */
-    if ((this.pause == true && this.pauseDebt >= this.pauseDuration) || this.pauseDebt < 0) {
-      this.pause = false; 
-      this.pauseDebt = 0;
-      console.log("moving out of pause");
-    }
+    // pause overflow  
+    if (this.pause && 
+      this.pauseDebt > // overflow
+      this.pauseDuration * (this.pauseFrames.indexOf(this.currentPauseFrame)+1))
+      {
+        this.pause = false;
+        this.pauseDebt = this.pauseDuration * (
+          this.pauseFrames.indexOf(this.currentPauseFrame)+1);
+        console.log(
+          "pause overflow"
+          );
+      } 
+
+    this.goToActual = goTo - this.pauseDebt; // updated to take previous/current pause into account
+    // pause underflow  
+    if (this.goToActual < this.currentPauseFrame)
+    {
+      this.pause = true;
+      this.pauseDebt = this.pauseDuration * (this.pauseFrames.indexOf(this.currentPauseFrame)+1);
+      this.goToActual= this.currentPauseFrame;
+      console.log(
+        "pause underflow; pause debt now", this.pauseDebt
+        );
+    } 
+
     
-    if (goTo > maxFrames){ goTo  = maxFrames - 1;}
-    console.log("moving on to", goTo - this.pauseDebt - this.pauseOffset);
-    this.animationItem.goToAndStop(goTo - this.pauseDebt - this.pauseOffset, true); 
+    console.log("goto", goTo, "actual", this.goToActual, "debt", this.pauseDebt);
+
+    if (this.goToActual > maxFrames){ this.goToActual = maxFrames - 1;} // don't scroll past max frame
+    this.animationItem.goToAndStop(this.goToActual, true); 
   }
 
   animationCreated(animationItem: AnimationItem): void {
