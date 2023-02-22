@@ -65,8 +65,8 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
     }
 
     /* if pause offset changed, we're either in next pause or moved above prev pause */
-    if (this.previousPauseFrame != this.currentPauseFrame) {
-      this.pause = !this.pause;
+    if (this.previousPauseFrame < this.currentPauseFrame) {
+      this.pause = true;
       console.log(
         "previous pause frame", this.previousPauseFrame,
         "pause frame changed to", this.currentPauseFrame,
@@ -74,7 +74,10 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
         );
       this.previousPauseFrame = this.currentPauseFrame;
     } 
-
+    if (goTo < this.pauseDuration * this.pauseFrames.indexOf(this.currentPauseFrame)) {
+      this.pause = true;
+      console.log("pause underflow");
+    }
     /* gradually increase debt if in pause */
     if (this.pause == true) {
       this.pauseDebt = goTo - this.currentPauseFrame ;
@@ -90,12 +93,26 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
         this.pauseDebt = this.pauseDuration * (
           this.pauseFrames.indexOf(this.currentPauseFrame)+1);
         console.log(
-          "pause overflow"
+          "pause overflow down"
           );
       } 
 
-    this.goToActual = goTo - this.pauseDebt; // updated to take previous/current pause into account
-    // pause underflow  
+    // pause overflow up 
+    if (this.pause && 
+      this.pauseDebt < // overflow
+      this.pauseDuration * (this.pauseFrames.indexOf(this.currentPauseFrame)))
+      {
+        this.pause = false;
+        this.pauseDebt = this.pauseDuration * (
+          this.pauseFrames.indexOf(this.currentPauseFrame));
+        this.currentPauseFrame = this.pauseFrames[this.pauseFrames.indexOf(this.currentPauseFrame) - 1];
+
+        console.log(
+          "pause overflow up, cuurent pause frame changed to", this.currentPauseFrame, "debt", this.pauseDebt
+          );
+      } 
+   /* this.goToActual = goTo - this.pauseDebt; // updated to take previous/current pause into account
+    // return into pause from below  
     if (this.goToActual < this.currentPauseFrame)
     {
       this.pause = true;
@@ -104,7 +121,7 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
       console.log(
         "pause underflow; pause debt now", this.pauseDebt
         );
-    } 
+    } */
 
     
     console.log("goto", goTo, "actual", this.goToActual, "debt", this.pauseDebt);
