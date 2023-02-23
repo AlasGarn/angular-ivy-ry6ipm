@@ -93,6 +93,6 @@
   },
   "defaultProject": "demo",
   "cli": {
-    "analytics": false
+    "analytics": "5fb44a87-44b9-4b69-85d6-41ad35f57433"
   }
 }

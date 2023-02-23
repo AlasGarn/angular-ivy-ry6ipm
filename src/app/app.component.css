@@ -4,3 +4,6 @@ p {
     line-height: 1.688rem;
     font-weight: 400;
 }
+* {
+    scroll-behavior: auto;
+  }

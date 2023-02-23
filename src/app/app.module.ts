@@ -14,8 +14,7 @@ import { ResolverService } from "./resolvers/resolver.service";
 import { LottieModule } from "ngx-lottie";
 import player from "lottie-web";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import {NgsRevealModule} from 'ngx-scrollreveal';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NetworkInterceptor } from './network.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -49,23 +48,24 @@ export function playerFactory() {
     HttpClientModule,
     NgbModule,
     NgbCollapseModule,
+    NgsRevealModule,
     LottieModule.forRoot({ player: playerFactory }),
     RouterModule.forRoot(routes,
       { 
-	scrollPositionRestoration: 'enabled',
+	      scrollPositionRestoration: 'disabled',
         anchorScrolling: 'enabled',
-	scrollOffset: [0, 64]
-          }) ,
+	      scrollOffset: [0, 64]
+          }),
     FormsModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule,
   ],
   declarations: [
     AppComponent, 
     NavComponent, 
     HomeComponent, 
     ProjectsComponent, 
-    pp2aAnimationComponent, SpinnerComponent,
+    pp2aAnimationComponent, 
+    SpinnerComponent,
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, /* need to reload with hash */
              {provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true},
