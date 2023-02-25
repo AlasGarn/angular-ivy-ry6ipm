@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   justify-content: center;
-  padding: 0.5rem 1rem;
+ /* padding: 0.5rem 1rem;*/
   background: rgba(
     150,
     150,
@@ -26,5 +26,23 @@
 }
 .active {
 border-bottom: 3px solid;
-padding-bottom: 4px;
+padding-bottom: 0px;
+}
+a.nav-link {
+  padding-bottom: 0px;
+  }
+h3 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.688rem;
+  font-weight: 400;
+  margin: 0px 0px 0px 0px;
+}
+
+.logo {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.688rem;
+  font-weight: 600;
+  margin: 0px 0px 0px 0px;
 }

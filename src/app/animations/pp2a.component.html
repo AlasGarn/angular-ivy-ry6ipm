@@ -1,204 +1,61 @@
-<div class="row justify-content-start align-items-center min-vh-75">
-  <div class="col-lg-12 col-sm-12"style="position: fixed; top: 25px; height: 75%"> 
-    <ng-lottie          #lottie
-          [options]="options"
-          (animationCreated)="animationCreated($event)"
-      >
-    </ng-lottie> 
-  </div>	  
-</div>
-<div style="height:50vh; z-index:-999"></div>
-<div 
- class="d-flex row justify-content-center align-items-center">
+<div class="d-flex row justify-content-center align-items-center">
   <div class="col-lg-3 col-sm-10 text-center overlay">
     <h1>PROTEIN PHOSPHOTASE 2A </h1>
     <p>scroll down...</p>
   </div>
   <div class="col-lg-1"></div>
 </div>
-<div style="height:50vh"></div>
-<div
-  class="d-flex row justify-content-center align-items-center"
-  [ngsReveal] = "{ 
-  origin: 'bottom', 
-  distance: '500px', 
-  duration: 1000, 
-  reset: false }"
-  >
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>PP2A is a protein made of 3 parts.</p>
-  </div>
-  <div class="col-lg-1"></div>
+
+<div class="scrollDist"></div>
+
+<!--
+<div class = "main d-flex row">
+  <img src="../../assets/img/pp2a_background.jpg" alt=""/>
+</div>
+-->
+
+
+<div>
+  <img src="../../assets/img/bubbles_C_focussed.png" class="front" height="2000vh" width="100vw" />
+  <img src="../../assets/img/bubbles_C_defocussed.png" class="backdrop" height="2000vh" width="100vw"/>
+
+
+
+
+<div  #lottieContainer class="row justify-content-start align-items-center min-vh-75">
+  <div class="lottie-container col-lg-10 col-sm-12"style="position: fixed; height: 75%"> 
+    <ng-lottie #lottiePlayer class="lottiePlayer"
+          [options]="options"
+          (animationCreated)="animationCreated($event)"
+          (load)="animationDataReady()" 
+      >
+    </ng-lottie> 
+  </div>	  
 </div>
 
+<div style="height:75vh; z-index:-999"></div>
 
-<div style="height:50vh"></div>
-<div 
-  class="d-flex row justify-content-end align-items-center"
+
+
+<div style="height:75vh"></div>
+
+<div #text 
+[@flyInOut]="{value: textState, params:{textVH: textPositionTop}}"
+style="position: fixed; width: 100%;" 
+  [style.top.px]="textPositionTop"
+  (@flyInOut.start)="animStart($event)"
+  (@flyInOut.done)="animEnd($event)"
 >
-  <div class="col-lg-6 col-sm-0"></div>
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-      <p>The scaffold subunit...</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:75vh"></div>
-<div
-[ngsReveal] = "{ 
-  origin: 'bottom', 
-  distance: '500px', 
-  duration: 1000, 
-  reset: false }"
-class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <div class="backdrop">
-    <p>The catalytic subunit...</p>
+  <div class="d-flex row align-items-end">
+    <div [ngClass]="textPositionLeft" ></div>
+    <div class="col-lg-3 col-sm-10 text-center overlay">
+      <p>{{currentText}}</p>
     </div>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-<div style="height:75vh"></div>
-<div 
-[ngsReveal] = "{ 
-  origin: 'bottom', 
-  distance: '500px', 
-  duration: 1000, 
-  reset: false }"
-class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>And a regulatory subunit, which can be one of several types</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-<div style="height:75vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>In our work, we focused on regulatory subunit called B56d</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
+  </div> 
 </div>
 
 
-<div style="height:150vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
+<div id="placeholder" [style.height.px]="placeholderHeight" ></div>
 
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>PP2A is a master regulator of the cellular cycle and mutations in its 
-      regulatory subunit are linked to intellectual disability and cancer.</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
+
 </div>
-
-<div style="height:175vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>The arms of B56 can come apart to expose the active site and the SLiM 
-      binding groove</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:375vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>The coordinated movement of PP2A forms a network, 
-      through which a disturbance at one part of the structure can reach a distant part. This phenomenon is called allostery.</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:275vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>Scanning for possible mutations...</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:75vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>Residues E198 and E200 are often found mutated in people
-       diagnosed with intellecual disability (add arrows)</p>
-  </div>
-  <div class="col-1"></div>
-</div>
-
-<div style="height:175vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>A normal PP2A has an
-       allosteric channel that holds the SLiM in place
-    </p>
-  </div>
-  <div class="col-lg-5 col-sm-10 text-center overlay">
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-<div style="height:125vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>But, if E198 is mutated to K198, another allosteric channel is formed, 
-      which causes the C-arm to become more flexible</p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:75vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>
-    We found that the E198K mutation can rewire the allosteric 
-    network which caused the C-arm to detach more easily. 
-  </p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-<div style="height:75vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>
-    This means that the E198K mutant PP2A will be abnormally active. 
-  </p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-<div style="height:75vh"></div>
-<div class="d-flex row justify-content-end align-items-center">
-  <div class="col-lg-6 col-sm-0"></div>
-
-  <div class="col-lg-3 col-sm-10 text-center overlay">
-    <p>
-    We hope that understanding the allostery in PP2A can help others design
-    drugs to help patients with mutations to the B56d gene
-  </p>
-  </div>
-  <div class="col-lg-2 col-sm-0"></div>
-</div>
-
-
-<div id="placeholder" style="height: 50000px">
-</div>
-

@@ -1,6 +1,6 @@
 .container {
 	display: flex;
-	height: 100%;
+	width: 100%;
 	flex-direction: column;
 }
 .link {
@@ -12,5 +12,12 @@
 }
 bio {
   background-image: linear-gradient(rgba(150,150,150,0.5), rgba(245,40,145,0.8));
+}
+
+p {
+  margin-left: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+
 }
 

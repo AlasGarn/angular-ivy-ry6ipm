@@ -28,8 +28,8 @@ aria-expanded="false"
 [routerLinkActive]="['active']" 
 [routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
 >
-	      <a  class="navbar-brand nav-link" [routerLink]='["/home"]' 
-                  fragment="bio"><b>KIRILL KONOVALOV</b></a>
+	      <a  class=" nav-link" [routerLink]='["/home"]' 
+                  fragment="bio"><p class = "logo">KIRILL KONOVALOV</p></a>
       </li>
       <span class="sr-only"></span>
       <li class="nav-item" 
@@ -37,22 +37,25 @@ aria-expanded="false"
 [routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
 >
         <a class="nav-link" [routerLink]="['/home']"
-fragment="work">LATEST WORK</a>
+fragment="work"><h3>LATEST WORK</h3></a>
       </li>
       <li class="nav-item" 
 [routerLinkActive]="['active']" 
 [routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
 >
         <a  class="nav-link" [routerLink]="['/home']" 
-fragment="CV">CV</a>
+fragment="CV"><h3>CV</h3></a>
       </li>
       <li class="nav-item" 
 [routerLinkActive]="['active']" 
 [routerLinkActiveOptions]="{ matrixParams: 'exact', queryParams: 'exact', paths: 'exact', fragment: 'exact' }"
 >
-        <a  class="nav-link" routerLink="projects" 
-> PROJECTS </a>
+        <a  class="nav-link" routerLink="projects"><h3>PROJECTS</h3></a>
       </li>
+<!--
+      <li class="nav-item">
+        <a  class="nav-link" routerLink="test"> test </a>
+      </li> -->
     </ul>
   </div>
 </nav>

@@ -1,10 +1,42 @@
 
 .overlay { 
     z-index: 1000;
-    background-color: rgba(100, 100, 100, 0.75);
-        font-weight: 400;
+    background-color: rgba(100, 100, 100, 0.5);
         color: white;
-    padding:16px,16px,16px,16px; 
-        margin-top: 0px;
-        margin-bottom: 0px;
+        padding: 0.5rem 1rem;
+
     }
+
+.wrapper {
+    display: flex;
+}
+.backdrop {
+    z-index: 10;
+    position: fixed;
+    min-width: 100vw;
+    min-height: 150vh;
+    height: auto;
+    top: 0;
+    opacity: 0.5;
+}
+.front {
+    z-index: 30;
+    position: fixed;
+    width: 100vw;
+    height: auto;
+    opacity:0.5;
+    top: 0;
+}
+.main {
+    z-index: 0;
+    position: fixed;
+    top: 25px;
+    min-width: 100vw;
+    min-height: 150vh;
+    opacity: 0.5;
+}
+.scrollDist {
+    position: fixed;
+    top: 50px;
+    height:3000vh;
+}
