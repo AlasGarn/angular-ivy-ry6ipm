@@ -18,38 +18,31 @@
 <div>
   <img src="../../assets/img/bubbles_C_focussed.png" class="front" height="2000vh" width="100vw" />
   <img src="../../assets/img/bubbles_C_defocussed.png" class="backdrop" height="2000vh" width="100vw"/>
+</div>
 
 
 
-
-<div  #lottieContainer class="row justify-content-start align-items-center min-vh-75">
-  <div class="lottie-container col-lg-10 col-sm-12"style="position: fixed; height: 75%"> 
-    <ng-lottie #lottiePlayer class="lottiePlayer"
+<div  #lottieContainer class="lottie-container d-flex row justify-content-center align-items-center" 
+                        style="position: fixed; width:100%; top: 45px">
+    <ng-lottie #lottiePlayer class="lottie-player col-lg-10 col-sm-12"
           [options]="options"
           (animationCreated)="animationCreated($event)"
           (load)="animationDataReady()" 
       >
-    </ng-lottie> 
-  </div>	  
+    </ng-lottie>  
 </div>
-
-<div style="height:75vh; z-index:-999"></div>
-
-
-
-<div style="height:75vh"></div>
 
 <div #text 
 [@flyInOut]="{value: textState, params:{textVH: textPositionTop}}"
-style="position: fixed; width: 100%;" 
+style="position: fixed; width: 100%; white-space:pre-wrap"
   [style.top.px]="textPositionTop"
   (@flyInOut.start)="animStart($event)"
   (@flyInOut.done)="animEnd($event)"
 >
   <div class="d-flex row align-items-end">
     <div [ngClass]="textPositionLeft" ></div>
-    <div class="col-lg-3 col-sm-10 text-center overlay">
-      <p>{{currentText}}</p>
+    <div class="col-lg-3 col-sm-12 overlay text-left">
+      <p *ngFor="let text of currentText">{{text}}</p>
     </div>
   </div> 
 </div>
@@ -57,5 +50,3 @@ style="position: fixed; width: 100%;"
 
 <div id="placeholder" [style.height.px]="placeholderHeight" ></div>
 
-
-</div>

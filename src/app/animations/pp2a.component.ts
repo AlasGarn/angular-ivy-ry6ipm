@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";  
+import { ActivatedRoute, NavigationEnd,NavigationStart, Router } from "@angular/router";  
 import { Post } from "../models/post";
 import { AnimationOptions, LottieModule } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import {fromEvent, Subscription} from 'rxjs';
-import {tap, throttleTime} from 'rxjs/operators';
+import {fromEvent, Subscription } from 'rxjs';
+import {tap, throttleTime, filter} from 'rxjs/operators';
 import { gsap, Power3 } from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -42,7 +42,7 @@ var flyInOut = trigger(
             textRef: new ViewChild( "text" )},
   selector: 'pp2a-animation',
   templateUrl: './pp2a.component.html',
-  styleUrls: ['pp2a.component.css', '../app.component.css'],
+  styleUrls: ['../app.component.css', 'pp2a.component.css', ],
   animations: [flyInOut]
 })
 
@@ -59,43 +59,58 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     autoplay: false,
     loop: false,
     rendererSettings: {
-      progressiveLoad: false,
+      progressiveLoad: true,
         },
 	        };
   private animationItem: AnimationItem;
   public animationBuffer;
   public pauseFrames = [
     0, // intro
-    10,// ca
-    20,// cc
-    30,// cb + cb2
-    70,// master
-    120, // arms
-    250, // network
-    350,// scan 
-    400, // separation
-    410, // wt slim channel
-    425, // e198k slim channel
-    470, // we hope...
-    510
+    11,// ca
+    21,// cc
+    31,// cb + cb2
+    71,// master
+    121, // arms
+    248, // network
+    351,// scan 
+    391, // residues are sometimes mutated 
+    416, //  wt slim channel
+    422, // e198k slim channel ; 
+    480, // this means (after rotate)
+    510, //we hope...
+    520 // ps
   ];
   public pauseText = [
-    "PP2A is made of 3 parts",
-    "The scaffold sub-unit...",
-    "The catalytic sub-unit...",
-    "And a regulatory sub-unit, which can be one of several types. (In this work, we focused on B56d)",
-    "PP2A is a master regulator of the cellular cycle and mutations in B56d are linked to intellectual disability and cancer.",
-    "The arms of B56d can come apart to expose the active site and the SLiM binding groove",
-    "The coordinated movement of PP2A forms a network, through which a disturbance at one part of the structure can reach a distant part. This phenomenon is called allostery. We were able to compute this network through molecular simulations.",
-    "Several mutations were previously identified in B56d...",
-    "Residues E198 and E200 are sometimes found mutated in people diagnosed with intellecual disability. In this work we compared the allosteric networks between a normal PP2A and the E198K mutant.",
-    "A normal PP2A has an allosteric channel that holds the SLiM in place",
-    "But, if E198 is mutated to K198, another allosteric channel is formed, which causes the C-arm to become more flexible",
-    "We found that the E198K mutation can rewire the allosteric network which caused the C-arm to detach more easily. This means that the E198K mutant PP2A will be abnormally active.",
-    "We hope that understanding the allostery in PP2A can help others design drugs to help patients with mutations to the B56d"
+    [["PP2A is made of 3 parts"]],
+    [["The scaffold subunit..."]],
+    [["The catalytic subunit..."]],
+    [["And a regulatory subunit, which can be one of several types."], 
+      ["(In this work, we studied the one called B56d)"]
+    ],
+    [["Together they form an enzyme that removes a phosphate modification from other proteins."], 
+      ["PP2A is called a master regulator of the cellular cycle because it is a critical counterweight to the kinases, which add the phosphate modification."],
+      ["Mutations in B56d are linked to intellectual disability and cancer."]
+    ],
+    [["The arms of B56d can come apart to expose the active site and the SLiM binding groove"]],
+    [["The coordinated movement of PP2A forms a network, through which a disturbance at one part of the structure can reach a distant part."],
+      ["This phenomenon is called allostery."],
+      ["We were able to investigate this network through molecular simulations."]
+    ],
+    [["Several mutations were previously identified in B56d..."]],
+    [["Residues E198 and E200 are sometimes found mutated in people diagnosed with intellecual disability."],
+      ["In this work we compared the allosteric networks between a normal PP2A and the E198K mutant."]
+    ],
+    [["A normal PP2A has an allosteric channel that holds the SLiM in place"]],
+    [["But, if E198 is mutated to K198, another allosteric channel is formed which causes the C-arm to become more flexible"]],
+    [["This mutated allosteric channel makes the C-arm detach more easily."], 
+      ["This means that the E198K mutant PP2A will be abnormally active."]
+    ],
+    [["We hope that understanding the allostery in PP2A can help design drugs to help patients with mutations to the B56d"]],
+    [["I computed the allosteric networks shown here based on physics-based simulations, which fit very well with lab experiments by Yongna Xing and her lab. See all the details of this work in our upcoming JCP paper (I'll add a link here once it's online)"]]
+
   ];
   private alreadyLoaded = false;
-  public pauseDuration = 50;
+  public pauseDuration = 50; // frames
   private pause = false;
   private pauseIdx = 0;
   public topOffset;
@@ -108,7 +123,18 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
   private lastY = 0;
   private animationReady = false;
   public placeholderHeight = 0;
-  constructor(private route: ActivatedRoute) {
+  private isLoading = true;
+  constructor(private route: ActivatedRoute, private router: Router) {
+      router.events.subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.isLoading = true;
+        } else if (event instanceof NavigationEnd) {
+          this.isLoading = false;
+          this.animationDataReady();
+        }
+      });
+
+
   }  
 
   private eventSub: Subscription;
@@ -219,14 +245,11 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
     console.log("created");
-
-    
   }
   animationDataReady(): void {
     this.animationReady = true;
-    console.log("loaded");
     this.maxFrames = this.animationItem.firstFrame + this.animationItem.totalFrames - 1;
-    this.placeholderHeight = this.maxFrames*this.framesPerScreen + this.pauseDuration*this.pauseFrames.length;
+    this.placeholderHeight =  window.innerHeight/this.framesPerScreen * (this.maxFrames + this.pauseDuration*this.pauseFrames.length - 1) ;
   }
 
   @HostListener('window:load')
@@ -236,15 +259,12 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     this.alreadyLoaded = true;
   }
   ngAfterViewChecked() {
-    console.log("AfterViewChecked");
-    if (this.alreadyLoaded) {
-      console.log("page already loaded");
-      this.animationDataReady();}
+    this.animationDataReady();
   }
+
   ngAfterViewInit() {
     console.log("afterviewinit");
     if (this.alreadyLoaded) {
-      console.log("page already loaded");
       this.animationDataReady();}
     this.textPositionTop = this.lottieContainerRef.nativeElement.getBoundingClientRect().bottom;
   }
@@ -259,6 +279,11 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
       throttleTime(16), // emits once, then ignores subsequent emissions for 16ms, repeat...
       tap(event => this.animate(event))
     ).subscribe(); 
+   /* this.router.events.pipe(
+      filter((event:Event) => event instanceof NavigationEnd)
+    ).subscribe(x => console.log(x))
+    */
+   
 
     gsap.registerPlugin(ScrollTrigger);
     this.gsapScrollAnimations();
@@ -287,7 +312,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     })
       .fromTo('.front', {y:0},{y:-2000, ease: "none"},0)
       .fromTo('.backdrop', {y:0},{y:-1400, ease: "none"},0)
-      .fromTo('.lottie-container', {y:200},{y:210},0)
   }
 
   
