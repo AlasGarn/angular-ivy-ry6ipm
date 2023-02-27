@@ -48,7 +48,6 @@
     "phantomjs-prebuilt": "^2.1.16",
     "rxjs": "7.5.5",
     "scrollreveal": "^4.0.9",
-    "three": "^0.149.0",
     "tslib": "2.4.0",
     "utils-decorators": "^2.0.5",
     "zone.js": "0.11.5"

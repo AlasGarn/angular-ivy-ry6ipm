@@ -1,12 +1,12 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { ActivatedRoute, NavigationEnd,NavigationStart, Router } from "@angular/router";  
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";  
 import { Post } from "../models/post";
-import { AnimationOptions, LottieModule } from 'ngx-lottie';
+import { AnimationOptions } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import {fromEvent, Subscription } from 'rxjs';
-import {tap, throttleTime, filter} from 'rxjs/operators';
-import { gsap, Power3 } from 'gsap';
+import { fromEvent, Subscription } from 'rxjs';
+import { tap, throttleTime, filter } from 'rxjs/operators';
+import { gsap } from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 
@@ -34,7 +34,18 @@ var flyInOut = trigger(
 
   ])
 
-  
+
+  // fade intro text
+  var fade = trigger("fade", [
+    transition(':enter', [
+      style({ opacity: 0 }),
+      animate(1000, style({ opacity: 1 }))
+    ]),
+    transition(':leave', [
+      style({ opacity: 1 }),
+      animate(1000, style({ opacity: 0 }))
+    ])]
+  )
 
 @Component({
   queries: {lottieContainerRef: new ViewChild( "lottieContainer" ),
@@ -43,25 +54,34 @@ var flyInOut = trigger(
   selector: 'pp2a-animation',
   templateUrl: './pp2a.component.html',
   styleUrls: ['../app.component.css', 'pp2a.component.css', ],
-  animations: [flyInOut]
+  animations: [flyInOut, fade]
 })
 
-export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, OnInit {
+export class pp2aAnimationComponent implements AfterViewInit, OnInit {
   @ViewChild('lottieContainer', { static: false }) lottieContainerRef: ElementRef;
-  @ViewChild('lottiePlayer') private lottiePlayerRef: any;
-  //@ViewChild('lottiePlayer', {read: ElementRef}) private lottiePlayerRef: ElementRef;
-
-
-  @ViewChild('text',         { static: false }) textElementRef: ElementRef;
+  @ViewChild('text', { static: false }) textElementRef: ElementRef;
+  loadingAnimationOptions: AnimationOptions = {
+    path: '../assets/animation/loading.json',
+    autoplay: true,
+    loop: true,
+	};
 
   options: AnimationOptions = {
     path: '../assets/animation/my_lottie.json',
     autoplay: false,
     loop: false,
     rendererSettings: {
-      progressiveLoad: true,
+      progressiveLoad: false,
         },
-	        };
+	};
+  slimActiveSiteAnimationOptions: AnimationOptions = {
+    path: '../assets/animation/pointer.json',
+    autoplay: true,
+    loop: false,
+    rendererSettings: {
+      progressiveLoad: false,
+        },
+	};
   private animationItem: AnimationItem;
   public animationBuffer;
   public pauseFrames = [
@@ -109,7 +129,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     [["I computed the allosteric networks shown here based on physics-based simulations, which fit very well with lab experiments by Yongna Xing and her lab. See all the details of this work in our upcoming JCP paper (I'll add a link here once it's online)"]]
 
   ];
-  private alreadyLoaded = false;
   public pauseDuration = 50; // frames
   private pause = false;
   private pauseIdx = 0;
@@ -120,25 +139,16 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
   private animationRunning = false;
   public textPositionTop;
   public textPositionLeft;
+  public textPositionRight;
+  public textContainerClasses;
+  public slimActiveSiteAnimationGo;
+  public mutationSitesAnimationGo;
+  public mutantsSeparated = false;
   private lastY = 0;
-  private animationReady = false;
+  public animationReady = false;
   public placeholderHeight = 0;
-  private isLoading = true;
-  constructor(private route: ActivatedRoute, private router: Router) {
-      router.events.subscribe((event) => {
-        if (event instanceof NavigationStart) {
-          this.isLoading = true;
-        } else if (event instanceof NavigationEnd) {
-          this.isLoading = false;
-          this.animationDataReady();
-        }
-      });
-
-
-  }  
-
+  constructor(private route: ActivatedRoute, private router: Router) {}  
   private eventSub: Subscription;
-
 
   
   animate(event): void {
@@ -149,7 +159,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     if (!this.animationReady) {return}
     var goTo = Math.round(this.framesPerScreen * window.pageYOffset / window.innerHeight);
     var goToActual = goTo;
-
     // find whether we should pause
     if (goTo >= this.pauseFrames[0]) {
       for (let p of this.pauseFrames) {
@@ -159,11 +168,18 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
           goToActual = p;
           this.pauseIdx = idx;
           this.determineTextState();
+          this.determinePointerStates();
           break;
         }
         else {
           this.pause = false;  
           this.determineTextState();
+          this.determinePointerStates();
+
+          // remove pointers and labels outside of pause
+          this.mutationSitesAnimationGo = false;
+          this.slimActiveSiteAnimationGo = false;
+          this.mutantsSeparated = false;
         } 
       }
     }
@@ -181,7 +197,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     }
 
     if (goToActual > this.maxFrames){ goToActual = this.maxFrames - 1;} // don't scroll past max frame
-    if (goToActual == 0){ goToActual = - 1;} // show frame zero as black
 /*
     console.log(goToActual, 
       //"lastY", this.lastY, 
@@ -191,20 +206,62 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
     this.lastY =  window.pageYOffset;
     this.animationItem.goToAndStop(goToActual, true); 
   }
-
+  determinePointerStates() {
+    switch(this.pauseIdx){
+      case 5: {
+        this.slimActiveSiteAnimationGo = true;
+        break;
+      }
+      case 7: {
+        this.mutationSitesAnimationGo = true;
+        break;
+      }
+      case 8: {
+        this.mutantsSeparated = true; // to show WT/Mutant label
+        break;
+      }
+    }
+  }
   determineTextState() {
     // some logic for X positioning
     if (!this.animationRunning) {
-      if (this.pauseIdx == 9) {
-        this.textPositionLeft = "col-lg-1";
+      switch(this.pauseIdx){
+
+        case 8: {
+          this.textPositionLeft = "col-lg-0";
+          this.textContainerClasses = "justify-content-around";
+          this.textPositionTop = 75;
+          break;
+        }
+        case 9: {
+          this.textPositionLeft = "col-lg-0";
+          this.textPositionTop = 75;
+          this.textPositionRight = "col-lg-1"
+          this.textContainerClasses = "justify-content-around";
+          break;
+        }
+        case 10: {
+          this.textPositionLeft = "col-lg-1";
+          this.textPositionTop = 75;
+          this.textPositionRight = "col-lg-0"
+          this.textContainerClasses = "justify-content-around";
+          break;
+        }
+        case 12: {
+          this.textPositionLeft = "col-lg-0";
+          this.textPositionTop = 75;
+          this.textPositionRight = "col-lg-0"
+          this.textContainerClasses = "justify-content-around";
+          break;
+        }
+        default: {
+            this.textPositionTop = 45;
+            this.textPositionLeft = "col-lg-8";
+            if (this.pauseIdx > 7) {
+              this.textPositionTop = 75;
+            }
+        }
       }
-      else {
-        this.textPositionLeft = "col-lg-7";
-      }
-      if (this.pauseIdx > 7) {
-        this.textPositionTop = 75;
-      }
-      else {this.textPositionTop = 45;}
     }
     // set the text position to center if we entered a pause
     if (this.pause && this.textState != "center"  && !this.animationRunning) {
@@ -224,7 +281,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
             break; 
           }      
         } 
-
         default: {      
           // scrolling up -> the next text is at the top
           if (this.lastY > window.pageYOffset) {
@@ -239,33 +295,19 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
         }
       } 
     }
-
   }
-
   animationCreated(animationItem: AnimationItem): void {
     this.animationItem = animationItem;
-    console.log("created");
   }
+
   animationDataReady(): void {
     this.animationReady = true;
     this.maxFrames = this.animationItem.firstFrame + this.animationItem.totalFrames - 1;
     this.placeholderHeight =  window.innerHeight/this.framesPerScreen * (this.maxFrames + this.pauseDuration*this.pauseFrames.length - 1) ;
-  }
-
-  @HostListener('window:load')
-  onLoad() {
-    console.log("page is fully loaded");
-    this.animationDataReady();
-    this.alreadyLoaded = true;
-  }
-  ngAfterViewChecked() {
-    this.animationDataReady();
+    console.log("animation data loaded");
   }
 
   ngAfterViewInit() {
-    console.log("afterviewinit");
-    if (this.alreadyLoaded) {
-      this.animationDataReady();}
     this.textPositionTop = this.lottieContainerRef.nativeElement.getBoundingClientRect().bottom;
   }
   userPosts: Post[] = [];  
@@ -279,11 +321,6 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
       throttleTime(16), // emits once, then ignores subsequent emissions for 16ms, repeat...
       tap(event => this.animate(event))
     ).subscribe(); 
-   /* this.router.events.pipe(
-      filter((event:Event) => event instanceof NavigationEnd)
-    ).subscribe(x => console.log(x))
-    */
-   
 
     gsap.registerPlugin(ScrollTrigger);
     this.gsapScrollAnimations();
@@ -311,7 +348,7 @@ export class pp2aAnimationComponent implements AfterViewInit, AfterViewChecked, 
       }
     })
       .fromTo('.front', {y:0},{y:-2000, ease: "none"},0)
-      .fromTo('.backdrop', {y:0},{y:-1400, ease: "none"},0)
+      .fromTo('.back',  {y:0},{y:-1400, ease: "none"},0)
   }
 
   

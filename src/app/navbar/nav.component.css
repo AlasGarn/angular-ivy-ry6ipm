@@ -7,14 +7,7 @@
   justify-content: space-between;
   justify-content: center;
  /* padding: 0.5rem 1rem;*/
-  background: rgba(
-    150,
-    150,
-    150,
-    0.2
-  ) !important; /* Give transparent white background to navbar */
-  /* 0.2 to give little whitish effect. */
-  /* Put 0 to get complete transperency */
+  background: rgba(150,150,150,0.2); 
   z-index: 1010;
   backdrop-filter: blur(10px) saturate(125%); /* Blur the background */
   /* 10px Gaussian Blur and saturate for fluent design */

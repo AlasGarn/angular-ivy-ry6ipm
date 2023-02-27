@@ -1,7 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Post } from "../models/post";
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'home',

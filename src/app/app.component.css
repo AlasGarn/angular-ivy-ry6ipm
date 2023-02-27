@@ -1,10 +1,10 @@
 
 p {
     font-family: 'PT Serif', serif;
-    font-size: 1.125rem;
-    line-height: 1.688rem;
+    font-size: 1.225rem;
+    line-height: 1.75rem;
     font-weight: 400;
-    margin: 0px 0px 0px 0px;
+    margin: 0.5px 0px 0px 0px;
 }
 h1 {
     -webkit-font-smoothing: antialiased;

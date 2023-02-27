@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { pp2aAnimationComponent } from '../animations/pp2a.component';
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { Post } from "../models/post";
 
 @Component({
@@ -12,11 +11,16 @@ export class ProjectsComponent {
 
   posts: Post[];
   
-  constructor(private _route: ActivatedRoute) {
+  constructor(
+    private _route: ActivatedRoute, 
+    ) {
     this.posts = [];
   }
 
   ngOnInit() {
     this.posts = this._route.snapshot.data["posts"];
+  }
+
+  ngOnDestroy() {
   }
 }

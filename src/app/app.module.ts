@@ -44,9 +44,7 @@ const routes: Routes = [
         } ,
         { path: '', redirectTo: 'home'},
 ];
-export function playerFactory() {
-	  return player;
-}
+//export function playerFactory() {return player;}
 @NgModule({
   imports: [
     BrowserModule,
@@ -54,7 +52,8 @@ export function playerFactory() {
     HttpClientModule,
     NgbModule,
     NgbCollapseModule,
-    LottieModule.forRoot({ player: playerFactory }),
+    LottieModule.forRoot({ player: () => player }),
+    //LottieModule.forRoot({ player: playerFactory }),
     RouterModule.forRoot(routes,
       { 
 	      scrollPositionRestoration: 'disabled',
