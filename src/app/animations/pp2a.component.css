@@ -32,14 +32,14 @@ p {
     display: flex;
 }
 .lottie-container {
-    background-color: #0E2221;
+    background-color: #122F2B;
     z-index: 0;
     position: fixed;
     height: auto;
     top: 0;
 }
 .lottie-player {
-    background-color: #0E2221;
+    background-color: #122F2B;
     z-index: 0;
     height: auto;
     top: 0;
