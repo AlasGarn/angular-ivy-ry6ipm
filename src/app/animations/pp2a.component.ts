@@ -65,6 +65,9 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
     autoplay: true,
     loop: true,
 	};
+  upArrowOptions: AnimationOptions = {
+    path: '../assets/animation/arrow.json',
+    autoplay: true, loop: true};
 
   options: AnimationOptions = {
     path: '../assets/animation/my_lottie.json',
@@ -337,6 +340,9 @@ export class pp2aAnimationComponent implements AfterViewInit, OnInit {
     this.determineTextState();
     this.animationRunning = false
   }
+  
+  goToTop(){window.scroll(0,0);}
+
   gsapScrollAnimations() {
     gsap.set('.scrollDist', {width:"100vw", height:'3000vh'})
     gsap.timeline({

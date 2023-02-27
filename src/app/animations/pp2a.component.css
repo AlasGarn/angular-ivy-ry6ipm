@@ -32,14 +32,14 @@ p {
     display: flex;
 }
 .lottie-container {
-    background-color: #071514;
+    background-color: #0E2221;
     z-index: 0;
     position: fixed;
     height: auto;
     top: 0;
 }
 .lottie-player {
-    background-color: #071514;
+    background-color: #0E2221;
     z-index: 0;
     height: auto;
     top: 0;
@@ -48,24 +48,22 @@ p {
     mask-image: url("./../../assets/img/animation_mask.png");
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
+    -webkit-mask-size: 97% 97%;
+    mask-size: 97% 97%;
     mask-position: 50% 50%;
   }
 
 .front {
     z-index: 30;
     position: fixed;
-    width: 100vw;
-    height: auto;
+    width: auto;
     opacity:0.5;
     top: 0;
 }
 .back {
     z-index: 30;
     position: fixed;
-    width: 100vw;
-    height: auto;
+    width: auto;
     opacity:0.5;
     top: 0;
 }
@@ -121,17 +119,22 @@ p {
     transform: scaleX(-1) translate(0%, -100%) ;
   }
 
-  .pointerE198Lottie {
+.pointerE198Lottie {
     position: fixed;
     z-index: 1000;
     top: 50%;
     left: 50%;
     transform: translate(-65%, -60%) scaleX(-1) scaleY(-1);
-  }
-  .pointerE198Text {
+}
+.pointerE198Text {
     position: absolute;
     z-index: 1000;
     top: 50%;
     left: 50%;
     transform: scaleY(-1) scaleX(-1) translate(-15%,-20%);
-  }
+}
+
+.up-arrow {
+    z-index: 100;
+    transform: scale(0.15,-0.15);
+}

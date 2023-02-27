@@ -1,6 +1,6 @@
 <div *ngIf="animationReady">
-  <img src="../../assets/img/bubbles_C_focussed.png" class="front" height="2000vh"/>
-  <img src="../../assets/img/bubbles_C_defocussed.png" class="back" height="2000vh"/>
+  <img src="../../assets/img/bubbles_C_focussed.png" class="front" [style.height.px]="placeholderHeight"/>
+  <img src="../../assets/img/bubbles_C_defocussed.png" class="back" [style.height.px]="placeholderHeight"/>
 </div>
 <!--  -->
 <ng-lottie 
@@ -37,8 +37,8 @@
 
 <div @fade *ngIf="mutantsSeparated" style="position: fixed; width: 100%; top:15vh; z-index: 1000;" 
 class="d-flex row g-0 justify-content-around">
-  <div class="d-flex col-6 text-center overlay-pointer justify-content-center"><h3>Normal</h3></div>
-  <div class="d-flex col-6 text-center overlay-pointer justify-content-center" style="color:rgb(255, 0, 106)"><h3>Mutant</h3></div>
+  <div class="d-flex col-6 text-center overlay-pointer justify-content-center"><h1>Normal</h1></div>
+  <div class="d-flex col-6 text-center overlay-pointer justify-content-center" style="color:rgb(255, 0, 106)"><h1>Mutant</h1></div>
 </div>
 
 
@@ -47,7 +47,7 @@ class="d-flex row g-0 justify-content-around">
 
 <div 
 class="d-flex g-0 row justify-content-center align-items-center h-100"
-style="position: fixed; width:100%; top: 0px; background-color: #071514">
+style="position: fixed; width:100%; top: 0px; background-color: #0E2221">
   <ng-lottie 
   class="col-lg-8 col-sm-12 mh-75 lottie-player align-self-center"
         [options]="options"
@@ -79,5 +79,9 @@ style="position: fixed; width: 100%;"
 </div>
 
 
-<div id="placeholder" [style.height.px]="placeholderHeight" ></div>
 
+<div id="placeholder" [style.height.px]="placeholderHeight" style="position:relative" ></div>
+<div style="height:75vh; position:relative"></div>
+<div class="d-flex row mh-10 justify-content-center" style="z-index: 1000; position: absolute; width: 100vw;">
+  <ng-lottie class="up-arrow"  [options]="upArrowOptions" (click)="goToTop()"></ng-lottie>
+</div>
